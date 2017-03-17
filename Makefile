@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS = -c -Wall -std=c++11 -pthread
 LD = g++
-LDFLAGS = -pthread -rdynamic -lboost_system -Wl,-Bstatic -lboost_coroutine -Wl,-Bdynamic -lboost_context -lboost_thread -lpthread -lcrypto -lpthread -ljson_spirit
+LDFLAGS = -pthread -rdynamic -lboost_system -Wl,-Bstatic -lboost_coroutine -Wl,-Bdynamic -lboost_context -lboost_thread -lpthread -lcrypto -lpthread -ljson_spirit -lboost_program_options
 
 # Include local configuration to override defaults. Put all your changes
 # into this file. This avoids cluttering the repository with your local
