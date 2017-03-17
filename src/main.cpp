@@ -66,11 +66,11 @@ int main(int argc, char** argv) {
 							if (connected) {
 								client.send_close(1000);
 								cout << "CONNECTION OK" << endl;
-								return 0;
+								exit(0);
 							} else {
 								client.send_close(1000);
 								cout << "CONNECTION CRITICAL" << endl;
-								return 2;
+								exit(2);
 							}
 							break;
 	 	        }
@@ -81,7 +81,7 @@ int main(int argc, char** argv) {
 		}
   	client.send_close(1000);
 		cout << "CONNECTION UNKNOWN" << endl;
-		return 3;
+		exit(3);
   };
 
   client.on_open=[&client]() {
@@ -104,10 +104,10 @@ int main(int argc, char** argv) {
 	client.on_error=[&](const boost::system::error_code& ec) {
 	cout << "CONNECTION UNKNOWN | ";
   cout << "Client: Error: " << ec << ", error message: " << ec.message() << " URL: " << url <<endl;
-	return 3;
+	exit(3);
   };
 
   client.start();
-
-  return 3;
+  cout << "CONNECTION UNKNOWN | ";
+  return (3);
 }
