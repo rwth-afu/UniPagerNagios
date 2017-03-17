@@ -1,0 +1,2 @@
+To compile install the following libs:
+sudo apt-get install libssl-dev libboost-dev libjson-spirit-dev libboost-system-dev libboost-coroutine-dev libboost-context-dev libboost-thread-dev libboost-program-options-dev
