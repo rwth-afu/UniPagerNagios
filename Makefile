@@ -26,9 +26,9 @@ endef
 
 .PHONY: all checkdirs clean
 
-all: checkdirs build/rustpagernagios
+all: checkdirs build/unipagernagios
 
-build/rustpagernagios: $(OBJ)
+build/unipagernagios: $(OBJ)
 	$(LD) $^ -o $@ $(LDFLAGS)
 
 
@@ -41,23 +41,3 @@ clean:
 	@rm -rf $(BUILD_DIR)
 
 $(foreach bdir,$(BUILD_DIR),$(eval $(call make-goal,$(bdir))))
-
-#SRC = $(wildcard src/*.cpp)
-#OBJ = $(SRC:src/%.cpp=build/%.o)
-#BIN = build/raspagercontrol
-
-#.PHONY: all clean
-
-#all: $(BIN)
-
-#$(BIN): $(OBJ)
-#	$(LD) -o $@ $^ $(LDFLAGS)
-
-#build/%.o: src/%.cpp | build
-#	$(CXX) $(CXXFLAGS) -o $@ $<
-
-#build:
-#	mkdir -p $@
-
-#clean:
-#	rm -rf build/
