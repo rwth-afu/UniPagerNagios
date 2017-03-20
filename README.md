@@ -1,2 +1,2 @@
-# RustPagerNagios
-Nagios Plugin for RustPager
+# UniPagerNagios
+Nagios Plugin for UniPager
