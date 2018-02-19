@@ -1,0 +1,52 @@
+#!/usr/bin/python2
+# Written by and all credits to Daniel Dibbets
+# Example usage:
+# /usr/local/nagios/libexec/check_unipager  -H pocsag.db0pm.ampr.org -p 8055
+# OK - UniPager is connected - URL = ws://pocsag.db0pm.ampr.org:8055/
+import websocket
+import thread
+import time
+import json
+import signal
+import sys
+import argparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-H", action="store", dest='host', help="WebSocket host to connect to", required=True)
+parser.add_argument("-p", action="store", dest='port', help="WebSocket port to connect to", required=True)
+args = parser.parse_args()
+
+URL="ws://%s:%s/" % (args.host, args.port)
+
+
+def signal_handler(signal, frame):
+        sys.exit(0)
+
+def on_message(ws, message):
+    parsed_json = json.loads(message)
+    if (parsed_json['Status']['connected']):
+       print "OK - UniPager is connected - URL = %s" % (URL)
+       sys.exit(0)
+    else:
+       print "CRITICAL - UniPager is NOT connected - URL = %s" % (URL)
+       sys.exit(2)
+
+def on_error(ws, error):
+    print "CRITICAL - %s - URL = %s" % (error,URL)
+    sys.exit(2)
+
+def on_open(ws):
+            ws.send("\"GetStatus\"")
+
+if __name__ == "__main__":
+
+    signal.signal(signal.SIGINT, signal_handler)
+    signal.signal(signal.SIGTERM, signal_handler)
+
+    websocket.enableTrace(False)
+    ws = websocket.WebSocketApp(URL,
+                                on_message = on_message,
+                                on_error = on_error,
+                                on_open = on_open)
+    ws.run_forever()
+    
